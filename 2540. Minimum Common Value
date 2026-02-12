@@ -1,0 +1,43 @@
+//Optimal Solution
+class Solution {
+    public int getCommon(int[] nums1, int[] nums2) {
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int x : nums1) {
+            set.add(x);
+        }
+
+        for (int y : nums2) {
+            if (set.contains(y)) {
+                return y;
+            }
+        }
+        return -1;
+    }
+}
+
+//Brute Force Method
+/*import java.util.Arrays;
+
+class Solution {
+    public int getCommon(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+
+        int i = 0, j = 0;
+
+        while (i < nums1.length && j < nums2.length) {
+            if (nums1[i] == nums2[j]) {
+                return nums1[i];   // first common element
+            } 
+            else if (nums1[i] < nums2[j]) {
+                i++;
+            } 
+            else {
+                j++;
+            }
+        }
+        return -1; // no common element
+    }
+}
+*/
