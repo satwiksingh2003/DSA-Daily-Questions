@@ -1,0 +1,51 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+        int n = nums.length;
+        
+        int[] leftSum = new int[n];
+        int[] rightSum = new int[n];
+        
+        leftSum[0] = 0;
+        rightSum[n - 1] = 0;
+
+        // Fill leftSum
+        for (int i = 1; i < n; i++) {
+            leftSum[i] = leftSum[i - 1] + nums[i - 1];
+        }
+
+        // Fill rightSum
+        for (int j = n - 2; j >= 0; j--) {
+            rightSum[j] = rightSum[j + 1] + nums[j + 1];
+        }
+
+        // Find pivot
+        for (int k = 0; k < n; k++) {
+            if (leftSum[k] == rightSum[k]) {
+                return k;
+            }
+        }
+
+        return -1;
+    }
+}
+/*class Solution {
+    public int pivotIndex(int[] nums) {
+        int totalSum = 0;
+        
+        for (int num : nums) {
+            totalSum += num;
+        }
+
+        int leftSum = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (leftSum == totalSum - leftSum - nums[i]) {
+                return i;
+            }
+            leftSum += nums[i];
+        }
+
+        return -1;
+    }
+}
+*/
