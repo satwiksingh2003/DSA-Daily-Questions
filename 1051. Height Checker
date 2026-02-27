@@ -1,0 +1,38 @@
+class Solution {
+    public int heightChecker(int[] heights) {
+        int[] count = new int[101]; // because heights range 1–100
+        //Count frequencies
+        for(int h : heights){
+            count[h]++;
+        }
+        int index = 0;
+        int mismatches = 0;
+        //Simulate sorted order
+        for(int h = 1; h <= 100; h++){
+            while(count[h] > 0){
+                if(heights[index] != h){
+                    mismatches++;
+                }
+                index++;
+                count[h]--;
+            }
+        }
+        return mismatches;
+    }
+}
+/*import java.util.Arrays;
+
+class Solution {
+    public int heightChecker(int[] heights) {
+        //Clone the original array
+        int[] expected = heights.clone();
+        Arrays.sort(expected);
+        int count = 0;
+        for(int i = 0; i < heights.length; i++){
+            if(heights[i] != expected[i]){
+                count++;
+            }
+        }
+        return count;
+    }
+}*/
