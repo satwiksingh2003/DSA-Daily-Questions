@@ -1,0 +1,30 @@
+class Solution {
+    public int findNumbers(int[] nums) {
+        int count = 0;
+        for(int num : nums){
+            int digits = 0;
+            while(num > 0){
+                num /= 10;
+                digits++;
+            }
+            if(digits % 2 == 0){
+                count++;
+            }
+        }
+        return count;
+    }
+}
+/*class Solution {
+    public int findNumbers(int[] nums) {
+        String str1;
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+            str1 = Integer.toString(nums[i]);
+            if(str1.length()%2==0){
+                count++;
+            }
+        }
+        return count;
+    }
+}
+*/
