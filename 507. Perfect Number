@@ -1,0 +1,26 @@
+class Solution {
+    public boolean checkPerfectNumber(int num) {
+        if (num <= 1) return false;
+        int sum = 1; // 1 is always a divisor
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) {
+                sum += i;  
+                if (i != num / i) { // avoid duplicate
+                    sum += num / i;
+                }
+            }
+        }
+        return sum == num;
+    }
+}
+// Euclid–Euler theorem: Only these many perfectnumbers are there in the range of 32 bits that's why we can just check.
+
+/*class Solution {
+    public boolean checkPerfectNumber(int num) {
+        int[] perfectNumbers = {6, 28, 496, 8128, 33550336};
+        for (int p : perfectNumbers) {
+            if (num == p) return true;
+        }
+        return false;
+    }
+}*/
