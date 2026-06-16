@@ -1,0 +1,32 @@
+class Solution {
+    public String maximumOddBinaryNumber(String s) {
+        int ones = 0;
+
+        // Count the number of 1's
+        for (char c : s.toCharArray()) {
+            if (c == '1') {
+                ones++;
+            }
+        }
+
+        int zeros = s.length() - ones;
+        StringBuilder sb = new StringBuilder();
+
+        // Place (ones - 1) ones at the front
+        while (ones > 1) {
+            sb.append('1');
+            ones--;
+        }
+
+        // Place all zeros
+        while (zeros > 0) {
+            sb.append('0');
+            zeros--;
+        }
+
+        // Last bit must be 1 to make the number odd
+        sb.append('1');
+
+        return sb.toString();
+    }
+}
