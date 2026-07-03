@@ -1,0 +1,17 @@
+class Solution {
+    public int balancedStringSplit(String s) {
+        int count = 0;   // to track balance
+        int result = 0;  // number of balanced substrings
+        for (char c : s.toCharArray()) {
+            if (c == 'R') {
+                count++;
+            } else {
+                count--;
+            }  
+            if (count == 0) {
+                result++;
+            }
+        }
+        return result;
+    }
+}
