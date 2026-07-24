@@ -1,0 +1,49 @@
+// class Solution {
+//     public int maxDigitRange(int[] nums) {
+//         int mini = Integer.INT_MAX;
+//         int maxi = Integer.INT_MIN;
+//         int digit = 0;
+//         ArrayList <Integer> arr = new ArrayList<>();
+//         for(int num:nums){
+//             while(num>0){
+//                 digit = num%10;
+//                 num=num/10;
+//                 if(digit<mini){
+//                     mini = digit;
+//                 }
+//                 if(digit>maxi){
+//                     maxi = digit;
+//                 }
+//             }
+//             arr.add(maxi-mini);
+            
+//         }
+//     }
+// }
+class Solution {
+    public int maxDigitRange(int[] nums) {
+        int n = nums.length;
+        int[] range = nums.clone();
+        int maxRange = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            int x = range[i];
+            int mn = Integer.MAX_VALUE;
+            int mx = Integer.MIN_VALUE;
+            while (x > 0) {
+                int d = x % 10;
+                mn = Math.min(mn, d);
+                mx = Math.max(mx, d);
+                x /= 10;
+            }
+            range[i] = mx - mn;
+            maxRange = Math.max(maxRange, range[i]);
+        }
+        int ans = 0;
+        for (int i = 0; i < n; i++) {
+            if (range[i] == maxRange) {
+                ans += nums[i];
+            }
+        }
+        return ans;
+    }
+}
