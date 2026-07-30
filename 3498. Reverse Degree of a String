@@ -1,0 +1,24 @@
+// class Solution {
+//     public int reverseDegree(String s) {
+//         int n = s.length();
+//         int sum = 0;
+//         for(int i = 0; i<n; i++){
+//             char letter = s.charAt(i);
+//             int position = Math.abs((letter - 'a' + 1)-27);
+//             sum+=(i+1)*position;
+//         }
+//         return sum;
+//     }
+// }
+class Solution {
+    public int reverseDegree(String s) {
+        int sum = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            int reverseDegree = 'z' - s.charAt(i) + 1;
+            sum += (i + 1) * reverseDegree;
+        }
+
+        return sum;
+    }
+}
