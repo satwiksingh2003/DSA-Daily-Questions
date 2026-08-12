@@ -1,0 +1,44 @@
+class Solution {
+    public int findPermutationDifference(String s, String t) {
+        int[] pos = new int[26];
+        int sum = 0;
+        for (int i = 0; i < s.length(); i++) {
+            pos[s.charAt(i) - 'a'] = i;
+        }
+        for (int i = 0; i < t.length(); i++) {
+            sum += Math.abs(pos[t.charAt(i) - 'a'] - i);
+        }
+        return sum;
+    }
+}
+
+// class Solution {
+//     public int findPermutationDifference(String s, String t) {
+//         HashMap <Character, Integer> hs = new HashMap<>();
+//         int sum = 0;
+//         for(int i = 0; i<s.length(); i++){
+//             hs.put(s.charAt(i),i);
+//         }
+//         for(int j = 0; j<t.length(); j++){
+//             hs.put(t.charAt(j), Math.abs(hs.get(t.charAt(j))-j));
+//         }
+//         for (Map.Entry<Character, Integer> e : hs.entrySet()){
+//             sum+=e.getValue();
+//         }
+//         return sum;
+//     }
+// }
+
+// class Solution {
+//     public int findPermutationDifference(String s, String t) {
+//         HashMap<Character, Integer> map = new HashMap<>();
+//         for (int i = 0; i < s.length(); i++) {
+//             map.put(s.charAt(i), i);
+//         }
+//         int sum = 0;
+//         for (int i = 0; i < t.length(); i++) {
+//             sum += Math.abs(map.get(t.charAt(i)) - i);
+//         }
+//         return sum;
+//     }
+// }
