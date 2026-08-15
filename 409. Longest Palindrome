@@ -1,0 +1,17 @@
+class Solution {
+    public int longestPalindrome(String s) {
+        int [] freq = new int [128]; // ASCII has values from 0 to 127 
+        for(char ch : s.toCharArray()){
+            freq[ch]++;
+        }
+        int length = 0;
+        for(int count : freq){
+            length += (count/2)*2;
+        }
+        if(length<s.length()){
+            length++;
+        }
+        return length;
+        
+    }
+}
