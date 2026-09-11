@@ -1,0 +1,76 @@
+class Solution {
+    public int totalNumbers(int[] digits) {
+        int[] freq = new int[10];
+
+        // Count frequency of each digit
+        for (int d : digits) {
+            freq[d]++;
+        }
+
+        int answer = 0;
+
+        // Choose the last digit.
+        // It must be even: 0, 2, 4, 6, 8
+        for (int last = 0; last <= 8; last += 2) {
+
+            if (freq[last] == 0) {
+                continue;
+            }
+
+            // Temporarily use one copy of the last digit
+            freq[last]--;
+
+            // Number of distinct digit values still available
+            int distinct = 0;
+
+            for (int d = 0; d <= 9; d++) {
+                if (freq[d] > 0) {
+                    distinct++;
+                }
+            }
+
+            /*
+             * Count ways to choose the first two digits.
+             *
+             * Different first and second digits:
+             *     distinct * (distinct - 1)
+             *
+             * Same first and second digit:
+             *     possible only when a digit has at least 2 copies.
+             */
+            int same = 0;
+
+            for (int d = 0; d <= 9; d++) {
+                if (freq[d] >= 2) {
+                    same++;
+                }
+            }
+
+            int ways = distinct * (distinct - 1) + same;
+
+            /*
+             * Remove numbers starting with 0.
+             *
+             * If 0 exists:
+             *   different second digit -> distinct - 1
+             *
+             *   same digit 00 is possible only if
+             *   there are at least 2 zeros remaining.
+             */
+            if (freq[0] > 0) {
+                ways -= distinct - 1;
+
+                if (freq[0] >= 2) {
+                    ways -= 1;
+                }
+            }
+
+            answer += ways;
+
+            // Restore the last digit
+            freq[last]++;
+        }
+
+        return answer;
+    }
+}
