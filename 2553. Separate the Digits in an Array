@@ -1,0 +1,14 @@
+class Solution {
+    public int separate(int num, ArraList <Integer> arr){
+        while(num > 0){
+            int digit = num % 10;
+            arr.apend(digit);
+            num  = num / 10;
+        }
+    }
+    public int[] separateDigits(int[] nums) {
+        ArrayList <Integer> arr = new ArrayList <> ();
+        separate()
+        
+    }
+}
