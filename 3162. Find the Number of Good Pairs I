@@ -1,0 +1,32 @@
+class Solution {
+    public int numberOfPairs(int[] nums1, int[] nums2, int k) {
+        // Frequency of nums2 values
+        HashMap<Integer, Integer> freq = new HashMap<>();
+        for (int num : nums2) {
+            freq.put(num, freq.getOrDefault(num, 0) + 1);
+        }
+        long ans = 0;
+        for (int num : nums1) {
+            // num must be divisible by nums2[j] * k
+            if (num % k != 0) {
+                continue;
+            }
+            int x = num / k;
+            // Find all divisors of x
+            for (int d = 1; d * d <= x; d++) {
+                if (x % d == 0) {
+                    // d is a divisor
+                    if (freq.containsKey(d)) {
+                        ans += freq.get(d);
+                    }
+                    // x/d is also a divisor
+                    int other = x / d;
+                    if (other != d && freq.containsKey(other)) {
+                        ans += freq.get(other);
+                    }
+                }
+            }
+        }
+        return (int) ans;
+    }
+}
