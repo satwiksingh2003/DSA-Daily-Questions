@@ -1,0 +1,29 @@
+class Solution {
+    public long minCost(int[] nums, int x) {
+        int n = nums.length;
+        long[] minCost = new long[n];
+        // Initially, minimum cost for each type
+        for (int i = 0; i < n; i++) {
+            minCost[i] = nums[i];
+        }
+        long answer = Long.MAX_VALUE;
+        // Try every possible number of operations
+        for (int k = 0; k < n; k++) {
+            long sum = 0;
+            for (int i = 0; i < n; i++) {
+                // Find the minimum cost available
+                // for type i after k operations
+                int rotatedIndex = (i + k) % n;
+                minCost[i] = Math.min(
+                    minCost[i],
+                    nums[rotatedIndex]
+                );
+                sum += minCost[i];
+            }
+            // Total cost = collection cost + operation cost
+            long totalCost = sum + (long) k * x;
+            answer = Math.min(answer, totalCost);
+        }
+        return answer;
+    }
+}
