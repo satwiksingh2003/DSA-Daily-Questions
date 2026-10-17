@@ -1,37 +1,48 @@
+import java.util.*;
 class Solution {
     public int minSwaps(int[] nums) {
         int n = nums.length;
-        // Count total number of 1s
-        int ones = 0;
-        for (int num : nums) {
-            if (num == 1) {
-                ones++;
-            }
+        Integer[] sorted = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            sorted[i] = nums[i];
         }
-        // No swaps needed
-        if (ones == 0 || ones == n) {
-            return 0;
-        }
-        // Initial window of size 'ones'
-        int currentOnes = 0;
-        for (int i = 0; i < ones; i++) {
-            if (nums[i] == 1) {
-                currentOnes++;
+        // Sort by digit sum, then by value
+        Arrays.sort(sorted, (a, b) -> {
+            int sumA = digitSum(a);
+            int sumB = digitSum(b);
+            if (sumA != sumB) {
+                return Integer.compare(sumA, sumB);
             }
+            return Integer.compare(a, b);
+        });
+        // value -> current index
+        HashMap<Integer, Integer> index = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            index.put(nums[i], i);
         }
-        int maxOnes = currentOnes;
-        // Sliding window over the circular array
-        for (int i = ones; i < n + ones; i++) {
-            // Add new element
-            if (nums[i % n] == 1) {
-                currentOnes++;
+        int swaps = 0;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == sorted[i]) {
+                continue;
             }
-            // Remove element leaving the window
-            if (nums[(i - ones) % n] == 1) {
-                currentOnes--;
-            }
-            maxOnes = Math.max(maxOnes, currentOnes);
+            int j = index.get(sorted[i]);
+            // Swap
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+            // Update positions
+            index.put(nums[i], i);
+            index.put(nums[j], j);
+            swaps++;
         }
-        return ones - maxOnes;
+        return swaps;
+    }
+    private int digitSum(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num /= 10;
+        }
+        return sum;
     }
 }
