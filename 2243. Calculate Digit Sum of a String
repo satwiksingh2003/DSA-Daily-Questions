@@ -1,0 +1,23 @@
+class Solution {
+    public String digitSum(String s, int k) {
+        // Continue the process as long as the string length is greater than k
+        while (s.length() > k) {
+            StringBuilder nextString = new StringBuilder();
+            // Traverse the string in chunks of size k
+            for (int i = 0; i < s.length(); i += k) {
+                int currentSum = 0;
+                // Calculate the sum of the digits in the current chunk
+                // We use Math.min to handle the last chunk which might be smaller than k
+                int end = Math.min(i + k, s.length());
+                for (int j = i; j < end; j++) {
+                    currentSum += s.charAt(j) - '0';
+                }
+                // Append the sum of the current chunk to our new string
+                nextString.append(currentSum);
+            }
+            // Update 's' for the next round
+            s = nextString.toString();
+        }
+        return s;
+    }
+}
